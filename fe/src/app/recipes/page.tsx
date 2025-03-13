@@ -40,7 +40,7 @@ const RecipesPage = async(props:Props) => {
 
     return (
         <Container>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground border-b border-border pb-3 text-center">
+            <h1 className="sticky top-0 left-0 w-full bg-background text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground border-b border-border py-4 text-center z-50">
                 {title}
             </h1>
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
