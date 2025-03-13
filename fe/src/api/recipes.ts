@@ -1,13 +1,12 @@
 import {API} from "./CoreAPI";
 
 export class RecipesService {
-    static async getRecipes(params?:{[key:string]:string}) {
-        console.log('params:',params);
-
+    static async getRecipes(params?:{[key:string]:string}|{}) {
         try {
-            return await API.GET({
+            const res =  await API.GET({
                 url: '/recipes', pathParams:params
             });
+            return res;
         }catch (e){
             console.log('RecipesService ::', e);
             throw e;

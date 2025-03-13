@@ -17,7 +17,7 @@ function buildUrlWithParams(
     }
 
     if (queryParams.length > 0) {
-        finalUrl += `?${queryParams.join("&")}`;
+        finalUrl += `?&${queryParams.join("&")}`;
     }
 
     return finalUrl;
@@ -30,25 +30,21 @@ class CoreAPI {
         this.baseURL = baseURL
     }
 
-    async GET({url,pathParams = {}}:{url:string,pathParams?:{[key:string]:string}}){
-            try{
-                const finalUrl = buildUrlWithParams(url, pathParams);
-                const response = await fetch(`${this.baseURL}${finalUrl}`, {
-                    method: 'GET',
-                });
+    async GET({ url, pathParams = {} }: { url: string; pathParams?: { [key: string]: string } }) {
+        try {
+            const finalUrl = buildUrlWithParams(url, pathParams);
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+            const response = await fetch(`${this.baseURL}${finalUrl}`, {
+                method: 'GET',
+            });
 
-                return await response.json();
+            return await response.json()
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                return { error: e.message };
             }
-            catch (e: unknown) {
-                if (e instanceof Error) {
-                    return { error: e.message };
-                }
-                return { error: "Unknown error" };
-            }
+            return { error: "Unknown error" };
+        }
     }
 }
 

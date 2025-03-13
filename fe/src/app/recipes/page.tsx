@@ -27,7 +27,15 @@ export interface Recipe {
 
 const RecipesPage = async(props:Props) => {
     const { country, category, ingredient } = await props.searchParams;
-    const recipes: Recipe[] = await RecipesService.getRecipes();
+
+    const filteredParams = {
+        ...(country && { country }),
+        ...(category && { category }),
+        ...(ingredient && { ingredient }),
+    };
+
+    const recipes: Recipe[] = await RecipesService.getRecipes(filteredParams ? {...filteredParams} : {});
+
 
     const titleParts = [
         country ? `from ${country}` : "",
@@ -44,7 +52,7 @@ const RecipesPage = async(props:Props) => {
                 {title}
             </h1>
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-                {recipes.map((recipe: Recipe) => (
+                {recipes?.map((recipe: Recipe) => (
                     <CardComponent key={recipe.idMeal} {...recipe} />
                 ))}
             </ul>
