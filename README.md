@@ -1,5 +1,7 @@
 Recipe Book
 
+Nest / Next / UI Shadcn 
+
 To start project please follow instructions
  
     first terminal
